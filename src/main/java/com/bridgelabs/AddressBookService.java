@@ -1,7 +1,8 @@
 package com.bridgelabs;
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
+
 
 public class AddressBookService
 {
@@ -73,9 +74,26 @@ public class AddressBookService
             }
         }
         if (!is_found)
+            contactNotPresent(is_found);
+        return addressBook;
+    }
+
+    public Contacts[] deleteContact(String name)
+    {
+        boolean is_found = false;
+        for (int conatct = 0; conatct < addressBook.length; conatct++)
         {
-            System.out.println("contact not found");
+            if(addressBook[conatct] != null && addressBook[conatct].getFirstName().equals(name) )
+            {
+                is_found = true;
+                for (int index=conatct; index < addressBook.length-2 ; index++)
+                {
+                    addressBook[index] = addressBook[index+1];
+                }
+                System.out.println("Contact deleted SuccessFully");
+            }
         }
+        contactNotPresent(is_found);
         return addressBook;
     }
 
@@ -93,6 +111,14 @@ public class AddressBookService
         } else
         {
             System.out.println("Contact list is empty");
+        }
+    }
+
+    private void contactNotPresent(boolean is_found)
+    {
+        if (!is_found)
+        {
+            System.out.println("contact not found");
         }
     }
 }
